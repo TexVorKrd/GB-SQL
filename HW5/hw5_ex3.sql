@@ -19,8 +19,8 @@ select
 	station,
     station_time,    
     CASE
-		when LEAD(station_time,1) over (PARTITION BY tarin_id order by station_time rows BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) then LEAD(station_time,1) over (PARTITION BY tarin_id order by station_time rows BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+		when LEAD(station_time,1) over (PARTITION BY tarin_id order by station_time rows BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) then timediff(LEAD(station_time,1) over (PARTITION BY tarin_id order by station_time rows BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING),station_time)
         else '-'
     END as to_next
 from
-	train_time
+	train_time;
